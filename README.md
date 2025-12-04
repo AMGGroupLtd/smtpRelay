@@ -139,6 +139,28 @@ Troubleshooting
 License and attribution
 - This setup uses the `ghcr.io/justiniven/smtp-oauth-relay` image. See that upstream repository for licensing and implementation details.
 
+
+EXAMPLE EMAIL SEND USING 'swaks'
+
+swaks \
+  --server <relay-host-or-ip> \
+  --port 8025 \
+  --auth \
+  --auth-user "TENANT_ID@CLIENT_ID" \
+  --auth-password "CLIENT_SECRET" \
+  --from "sender@yourdomain.com" \
+  --to "recipient@example.com" \
+  --header "Subject: Test via OAuth Relay" \
+  --body "Hello"
+
+@TODO Look at a way to aviod smtp authentication, possibly by adding SSMTP into the container as a 'middle man', how does this affect the security if the container is only accessible from the local docker containers?
+
+NOTE:: You need to use the TENANT_ID, CLIENT_ID and CLIENT_SECRET in the authentication section!
+
+
+
+
+
 CHANGE LOG
 - 2025-12-02: Initial release
 - 2025-12-04: Added docker network settings to Jinja template
