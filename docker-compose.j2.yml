@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  smtp-oauth-relay:
+    image: ghcr.io/justiniven/smtp-oauth-relay:latest
+    container_name: {{ SMTP_DOCKER_NAME }}
+    restart: unless-stopped
+    {% if DOCKER_PORT %}
+    ports:
+      - "{{ DOCKER_PORT }}:{{ SMTP_LISTEN_PORT }}"  # Expose SMTP on port {{ DOCKER_PORT }}
+    {% endif %}
+    {%  if SMTP_DOCKER_NETWORK %}
+    networks:
+      - {{ SMTP_DOCKER_NETWORK }}
+    {% endif %}
+
+{%  if SMTP_DOCKER_NETWORK %}
+networks:
+  {{ SMTP_DOCKER_NETWORK }}:
+    name: {{ SMTP_DOCKER_NETWORK }}
+{% endif %}

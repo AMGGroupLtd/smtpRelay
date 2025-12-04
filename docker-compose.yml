@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  smtp-oauth-relay:
+    image: ghcr.io/justiniven/smtp-oauth-relay:latest
+    container_name: smtp-relay
+    restart: unless-stopped
+    ports:
+      - "2625:2525"  # Expose SMTP on port 2625
+    networks:
+      - smtp
+
+networks:
+  smtp:
+    name: smtp
