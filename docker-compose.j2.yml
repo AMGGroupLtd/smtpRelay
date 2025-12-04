@@ -3,11 +3,16 @@ version: "3.8"
 services:
   smtp-oauth-relay:
     image: ghcr.io/justiniven/smtp-oauth-relay:latest
+    env_file:
+      - .env
     container_name: {{ SMTP_DOCKER_NAME }}
+    {% if SMTP_HOSTNAME %}
+    hostname: {{ SMTP_HOSTNAME }}
+    {% endif %}
     restart: unless-stopped
     {% if DOCKER_PORT %}
     ports:
-      - "{{ DOCKER_PORT }}:{{ SMTP_LISTEN_PORT }}"  # Expose SMTP on port {{ DOCKER_PORT }}
+      - "{{ DOCKER_PORT }}:8025"  # Expose SMTP on port 8025
     {% endif %}
     {%  if SMTP_DOCKER_NETWORK %}
     networks:

@@ -3,10 +3,13 @@ version: "3.8"
 services:
   smtp-oauth-relay:
     image: ghcr.io/justiniven/smtp-oauth-relay:latest
+    env_file:
+      - .env
     container_name: smtp-relay
+    hostname: smtp-oauth-relay.local
     restart: unless-stopped
     ports:
-      - "2625:2525"  # Expose SMTP on port 2625
+      - "2625:8025"  # Expose SMTP on port 8025
     networks:
       - smtp
 
