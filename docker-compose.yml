@@ -2,9 +2,12 @@ version: "3.8"
 
 services:
   smtp-oauth-relay:
-    image: ghcr.io/justiniven/smtp-oauth-relay:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     env_file:
       - .env
+      - .env.docker
     container_name: smtp-relay
     hostname: smtp-oauth-relay.local
     restart: unless-stopped
